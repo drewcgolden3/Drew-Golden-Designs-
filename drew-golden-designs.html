@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drew Golden Designs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:        #0f0f0d;
+      --cream:      #f5f1eb;
+      --warm-mid:   #e8e0d4;
+      --gold:       #b8935a;
+      --gold-light: #d4ae7a;
+      --muted:      #7a7568;
+      --white:      #fdfcfa;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.4rem 4rem;
+      background: rgba(245, 241, 235, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(184, 147, 90, 0.15);
+      transition: padding .3s;
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2.4rem; list-style: none; }
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 4rem 4rem;
+      gap: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 80% 50%, rgba(184,147,90,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 20% 80%, rgba(184,147,90,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    /* decorative lines */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 12%; right: 0;
+      width: 45%; height: 70%;
+      border: 1px solid rgba(184,147,90,0.18);
+      border-right: none;
+      border-radius: 4px 0 0 4px;
+      pointer-events: none;
+    }
+
+    .hero-text { position: relative; z-index: 1; }
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.4rem;
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block; width: 32px; height: 1px;
+      background: var(--gold);
+    }
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.2rem, 6vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.6rem;
+    }
+    h1 em { font-style: italic; color: var(--gold); }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 420px;
+      margin-bottom: 2.6rem;
+    }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 0.8rem;
+      padding: 0.9rem 2.2rem;
+      background: var(--ink);
+      color: var(--cream);
+      text-decoration: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: background .25s, transform .2s;
+    }
+    .hero-cta:hover { background: var(--gold); transform: translateY(-1px); }
+    .hero-cta-ghost {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.9rem 2.2rem;
+      border: 1px solid rgba(15,15,13,0.25);
+      color: var(--ink);
+      text-decoration: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-left: 1rem;
+      transition: border-color .25s, color .25s;
+    }
+    .hero-cta-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+    .hero-visual {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; gap: 1px;
+    }
+    .hero-stat-row {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      border: 1px solid rgba(15,15,13,0.1);
+      background: var(--warm-mid);
+    }
+    .hero-stat {
+      padding: 1.6rem 1.4rem;
+      border-right: 1px solid rgba(15,15,13,0.1);
+    }
+    .hero-stat:last-child { border-right: none; }
+    .hero-stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .hero-stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+    .hero-tagline-box {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 2.2rem 2rem;
+    }
+    .hero-tagline-box p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.5;
+    }
+    .hero-tagline-box cite {
+      display: block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 0.8rem;
+      font-style: normal;
+    }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 7rem 4rem; }
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .section-label::before {
+      content: '';
+      display: block; width: 24px; height: 1px;
+      background: var(--gold);
+    }
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    h2 em { font-style: italic; color: var(--gold); }
+
+    /* ── PORTFOLIO ── */
+    #portfolio { background: var(--white); }
+    .portfolio-header { max-width: 600px; margin-bottom: 3.5rem; }
+    .portfolio-header p {
+      color: var(--muted); line-height: 1.7; font-size: 1.05rem;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .portfolio-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--warm-mid);
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      aspect-ratio: 4/3;
+      transition: transform .35s cubic-bezier(.16,1,.3,1);
+    }
+    .portfolio-card:hover { transform: scale(1.015); z-index: 2; }
+
+    .card-bg {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 5rem;
+      color: rgba(184,147,90,0.15);
+      transition: transform .5s ease;
+    }
+    .portfolio-card:hover .card-bg { transform: scale(1.08) rotate(3deg); }
+
+    .card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(15,15,13,0.85) 0%, rgba(15,15,13,0.1) 55%, transparent 100%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 1.8rem 1.6rem;
+      transition: opacity .3s;
+    }
+
+    .card-type {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 0.4rem;
+    }
+    .card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--cream);
+      line-height: 1.2;
+      margin-bottom: 0.3rem;
+    }
+    .card-sub {
+      font-size: 0.8rem;
+      color: rgba(245,241,235,0.65);
+    }
+    .card-arrow {
+      position: absolute; top: 1.4rem; right: 1.4rem;
+      width: 36px; height: 36px;
+      border: 1px solid rgba(245,241,235,0.3);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--cream); font-size: 0.9rem;
+      opacity: 0;
+      transform: translate(-4px, 4px);
+      transition: opacity .3s, transform .3s;
+    }
+    .portfolio-card:hover .card-arrow { opacity: 1; transform: translate(0,0); }
+
+    /* card themes */
+    .card-goosemen { background: #1a1208; }
+    .card-goosemen .card-bg { color: rgba(210,170,100,0.12); font-size: 8rem; }
+
+    .card-artisans { background: #0d1a12; }
+    .card-artisans .card-bg { color: rgba(100,160,120,0.12); }
+
+    .card-outside { background: #0a1220; }
+    .card-outside .card-bg { color: rgba(80,130,180,0.12); }
+
+    /* card accent bar */
+    .card-bar {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px;
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .4s cubic-bezier(.16,1,.3,1);
+    }
+    .portfolio-card:hover .card-bar { transform: scaleX(1); }
+    .card-goosemen .card-bar { background: #d4a04a; }
+    .card-artisans .card-bar { background: #6aad8c; }
+    .card-outside .card-bar  { background: #5a9fd4; }
+
+    /* ── ABOUT ── */
+    #about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+      background: var(--cream);
+    }
+    .about-left { position: relative; }
+    .about-frame {
+      background: var(--warm-mid);
+      border: 1px solid rgba(184,147,90,0.2);
+      padding: 3rem;
+      position: relative;
+    }
+    .about-frame::before {
+      content: '';
+      position: absolute; top: -12px; left: -12px;
+      right: 12px; bottom: 12px;
+      border: 1px solid rgba(184,147,90,0.3);
+      pointer-events: none;
+    }
+    .about-initials {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 7rem;
+      font-weight: 300;
+      color: var(--gold);
+      opacity: 0.25;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+    .about-detail {
+      display: flex; align-items: baseline; gap: 0.8rem;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid rgba(15,15,13,0.08);
+    }
+    .about-detail:last-child { border-bottom: none; }
+    .detail-key {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      min-width: 90px;
+    }
+    .detail-val {
+      font-size: 0.92rem;
+      color: var(--ink);
+    }
+
+    .about-right p {
+      color: var(--muted);
+      line-height: 1.85;
+      font-size: 1.02rem;
+      margin-bottom: 1.4rem;
+    }
+    .about-right p strong { color: var(--ink); font-weight: 500; }
+
+    /* ── SERVICES ── */
+    #services { background: var(--ink); color: var(--cream); }
+    #services .section-label { color: var(--gold-light); }
+    #services .section-label::before { background: var(--gold-light); }
+    #services h2 { color: var(--cream); }
+    #services h2 em { color: var(--gold-light); }
+
+    .services-intro {
+      color: rgba(245,241,235,0.6);
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 3.5rem;
+      font-size: 1.02rem;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.08);
+    }
+    .service-card {
+      background: var(--ink);
+      padding: 2.4rem 2rem;
+      transition: background .25s;
+    }
+    .service-card:hover { background: #1a1a16; }
+    .service-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: rgba(184,147,90,0.2);
+      line-height: 1;
+      margin-bottom: 1.2rem;
+    }
+    .service-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--cream);
+      margin-bottom: 0.6rem;
+    }
+    .service-desc {
+      font-size: 0.88rem;
+      color: rgba(245,241,235,0.5);
+      line-height: 1.7;
+    }
+
+    /* ── PROCESS ── */
+    #process { background: var(--warm-mid); }
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      margin-top: 3.5rem;
+      background: rgba(15,15,13,0.08);
+    }
+    .process-step {
+      background: var(--cream);
+      padding: 2rem 1.6rem;
+    }
+    .step-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .step-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+    .step-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--cream);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+    #contact h2 { margin-bottom: 0.6rem; }
+    .contact-sub {
+      color: var(--muted); line-height: 1.7; margin-bottom: 2.4rem; font-size: 1.02rem;
+    }
+    .contact-links { display: flex; flex-direction: column; gap: 1.2rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 1rem;
+      text-decoration: none; color: var(--ink);
+      padding: 1rem 1.2rem;
+      border: 1px solid rgba(15,15,13,0.12);
+      transition: border-color .2s, background .2s;
+    }
+    .contact-link:hover { border-color: var(--gold); background: rgba(184,147,90,0.04); }
+    .contact-link-icon {
+      color: var(--gold); font-size: 1.1rem; width: 20px; text-align: center;
+    }
+    .contact-link-info {}
+    .contact-link-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .contact-link-val { font-size: 0.92rem; margin-top: 0.15rem; }
+
+    .contact-form-side {}
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label {
+      display: block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 0.5rem;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%; padding: 0.85rem 1rem;
+      background: var(--white);
+      border: 1px solid rgba(15,15,13,0.15);
+      color: var(--ink);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 300;
+      outline: none;
+      transition: border-color .2s;
+      appearance: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--gold); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .submit-btn {
+      width: 100%; padding: 1rem;
+      background: var(--ink); color: var(--cream);
+      border: none; cursor: pointer;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+      transition: background .25s;
+    }
+    .submit-btn:hover { background: var(--gold); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: rgba(245,241,235,0.5);
+      padding: 2.5rem 4rem;
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid rgba(184,147,90,0.2);
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-weight: 600;
+      color: var(--cream);
+      text-decoration: none;
+    }
+    .footer-logo span { color: var(--gold); }
+    .footer-copy {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem; letter-spacing: 0.08em;
+    }
+
+    /* ── FADE IN ── */
+    .fade-in {
+      opacity: 0; transform: translateY(22px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 2rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 7rem 2rem 4rem; }
+      .hero::after { display: none; }
+      section { padding: 5rem 2rem; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+      #about { grid-template-columns: 1fr; gap: 3rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      #contact { grid-template-columns: 1fr; gap: 3rem; }
+      footer { flex-direction: column; gap: 0.8rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Drew Golden <span>Designs</span></a>
+  <ul class="nav-links">
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text fade-in">
+    <p class="hero-eyebrow">Web Design &amp; Development</p>
+    <h1>Clean sites.<br>Clear <em>purpose.</em><br>Real results.</h1>
+    <p class="hero-sub">I build purposeful, polished websites for local businesses and brands — from initial concept to live launch, crafted with care for every detail.</p>
+    <div>
+      <a class="hero-cta" href="#portfolio">View My Work</a>
+      <a class="hero-cta-ghost" href="#contact">Get in Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-visual fade-in" style="transition-delay:.15s">
+    <div class="hero-stat-row">
+      <div class="hero-stat">
+        <div class="hero-stat-num">3+</div>
+        <div class="hero-stat-label">Sites Launched</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">100%</div>
+        <div class="hero-stat-label">Custom Code</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">0</div>
+        <div class="hero-stat-label">Templates Used</div>
+      </div>
+    </div>
+    <div class="hero-tagline-box">
+      <p>"Every business deserves a website that actually represents them — not a template that could belong to anyone."</p>
+      <cite>— Drew Golden, Founder</cite>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="portfolio-header fade-in">
+    <p class="section-label">Portfolio</p>
+    <h2>Work I'm <em>proud of.</em></h2>
+    <p>A selection of sites I've designed and built for real clients — each one built from scratch, tailored to their brand and audience.</p>
+  </div>
+
+  <div class="portfolio-grid">
+
+    <a class="portfolio-card card-goosemen fade-in" href="https://drewcgolden3.github.io/The-Goosemen/" target="_blank" rel="noopener">
+      <div class="card-bg">🥖</div>
+      <div class="card-overlay">
+        <div class="card-type">Food &amp; Deli · Bethlehem, PA</div>
+        <div class="card-title">The Goosemen</div>
+        <div class="card-sub">Family-run deli near Lehigh University — 30+ years of Lehigh Valley flavor</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-bar"></div>
+    </a>
+
+    <a class="portfolio-card card-artisans fade-in" href="https://drewcgolden3.github.io/Artisans-in-the-Square/" target="_blank" rel="noopener" style="transition-delay:.1s">
+      <div class="card-bg">🏺</div>
+      <div class="card-overlay">
+        <div class="card-type">Arts &amp; Crafts · Hingham, MA</div>
+        <div class="card-title">Artisans in the Square</div>
+        <div class="card-sub">A working co-op of 14 local makers in historic Hingham Square</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-bar"></div>
+    </a>
+
+    <a class="portfolio-card card-outside fade-in" href="https://drewcgolden3.github.io/Outside-In/" target="_blank" rel="noopener" style="transition-delay:.2s">
+      <div class="card-bg">⛰️</div>
+      <div class="card-overlay">
+        <div class="card-type">Outdoor Retail · Cohasset, MA</div>
+        <div class="card-title">Outside In</div>
+        <div class="card-sub">South Shore's neighborhood outfitter — outdoor athleticwear &amp; gear</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-bar"></div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-left fade-in">
+    <div class="about-frame">
+      <div class="about-initials">DG</div>
+      <div class="about-detail">
+        <span class="detail-key">From</span>
+        <span class="detail-val">Hingham, Massachusetts</span>
+      </div>
+      <div class="about-detail">
+        <span class="detail-key">School</span>
+        <span class="detail-val">Lehigh University</span>
+      </div>
+      <div class="about-detail">
+        <span class="detail-key">Major</span>
+        <span class="detail-val">Business</span>
+      </div>
+      <div class="about-detail">
+        <span class="detail-key">Stack</span>
+        <span class="detail-val">HTML · CSS · JavaScript</span>
+      </div>
+      <div class="about-detail">
+        <span class="detail-key">Specialty</span>
+        <span class="detail-val">Local Business · Brand Sites</span>
+      </div>
+      <div class="about-detail">
+        <span class="detail-key">Approach</span>
+        <span class="detail-val">Custom-built, zero templates</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-right fade-in" style="transition-delay:.12s">
+    <p class="section-label">About</p>
+    <h2>Built on <em>craft,</em> driven by curiosity.</h2>
+    <p>I'm Drew Golden — a student at <strong>Lehigh University</strong> studying Business, and a web designer based out of <strong>Hingham, Massachusetts</strong>. I started building websites because I saw a real gap: too many great local businesses had outdated or nonexistent web presences.</p>
+    <p>My approach is simple — no page builders, no themes, no shortcuts. Every site I deliver is <strong>hand-coded from scratch</strong>, designed around who the client actually is and what their customers actually need. That means cleaner code, faster load times, and something that genuinely stands out.</p>
+    <p>I bring a <strong>business-minded perspective</strong> to every project. A website isn't just a design exercise — it's a tool that should work hard for its owner. I think about audience, messaging, and goals as much as I think about layout and typography.</p>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <p class="section-label">Services</p>
+  <h2>What I <em>offer.</em></h2>
+  <p class="services-intro">Every engagement starts with listening — understanding your business, your customers, and your goals — before a single line of code is written.</p>
+  <div class="services-grid">
+    <div class="service-card fade-in">
+      <div class="service-num">01</div>
+      <div class="service-title">Custom Web Design</div>
+      <div class="service-desc">Fully original designs tailored to your brand — no templates, no drag-and-drop shortcuts. Every layout, color, and font is chosen with intent.</div>
+    </div>
+    <div class="service-card fade-in" style="transition-delay:.1s">
+      <div class="service-num">02</div>
+      <div class="service-title">Front-End Development</div>
+      <div class="service-desc">Clean, hand-written HTML, CSS &amp; JavaScript that's fast, accessible, and easy to maintain. Responsive across all screen sizes.</div>
+    </div>
+    <div class="service-card fade-in" style="transition-delay:.2s">
+      <div class="service-num">03</div>
+      <div class="service-title">Local Business Sites</div>
+      <div class="service-desc">A specialty in giving local shops, restaurants, and small businesses a web presence that earns trust and drives real foot traffic.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <p class="section-label fade-in">How It Works</p>
+  <h2 class="fade-in">A straightforward <em>process.</em></h2>
+  <div class="process-steps">
+    <div class="process-step fade-in">
+      <div class="step-num">Step 01</div>
+      <div class="step-title">Discovery</div>
+      <div class="step-desc">We talk through your goals, your customers, and what you need from a website. No jargon — just a real conversation.</div>
+    </div>
+    <div class="process-step fade-in" style="transition-delay:.08s">
+      <div class="step-num">Step 02</div>
+      <div class="step-title">Design</div>
+      <div class="step-desc">I design a custom look and feel that matches your brand. You see it before any code is written, and we refine together.</div>
+    </div>
+    <div class="process-step fade-in" style="transition-delay:.16s">
+      <div class="step-num">Step 03</div>
+      <div class="step-title">Build</div>
+      <div class="step-desc">Clean, hand-coded HTML/CSS/JS — built for speed and mobile. You get updates throughout the process.</div>
+    </div>
+    <div class="process-step fade-in" style="transition-delay:.24s">
+      <div class="step-num">Step 04</div>
+      <div class="step-title">Launch</div>
+      <div class="step-desc">We go live together. I handle deployment, do a full review, and make sure everything is working perfectly before handoff.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="fade-in">
+    <p class="section-label">Contact</p>
+    <h2>Let's build something <em>great.</em></h2>
+    <p class="contact-sub">Have a project in mind? I'd love to hear about it. Reach out and let's talk about what your website could be.</p>
+    <div class="contact-links">
+      <a class="contact-link" href="https://github.com/drewcgolden3" target="_blank" rel="noopener">
+        <span class="contact-link-icon">⌥</span>
+        <div class="contact-link-info">
+          <div class="contact-link-label">GitHub</div>
+          <div class="contact-link-val">github.com/drewcgolden3</div>
+        </div>
+      </a>
+      <div class="contact-link" style="cursor:default">
+        <span class="contact-link-icon">✦</span>
+        <div class="contact-link-info">
+          <div class="contact-link-label">Availability</div>
+          <div class="contact-link-val">Currently taking on new projects</div>
+        </div>
+      </div>
+      <div class="contact-link" style="cursor:default">
+        <span class="contact-link-icon">📍</span>
+        <div class="contact-link-info">
+          <div class="contact-link-label">Based In</div>
+          <div class="contact-link-val">Hingham, MA · Bethlehem, PA (Lehigh)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-form-side fade-in" style="transition-delay:.12s">
+    <div class="form-group">
+      <label>Full Name</label>
+      <input type="text" placeholder="Your name" />
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="your@email.com" />
+      </div>
+      <div class="form-group">
+        <label>Budget Range</label>
+        <select>
+          <option value="">Select…</option>
+          <option>Under $500</option>
+          <option>$500 – $1,000</option>
+          <option>$1,000 – $2,500</option>
+          <option>$2,500+</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Tell me about your project</label>
+      <textarea placeholder="What kind of business? What do you need? What do you love about your brand?"></textarea>
+    </div>
+    <button class="submit-btn" onclick="handleSubmit(event)">Send Message →</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a class="footer-logo" href="#">Drew Golden <span>Designs</span></a>
+  <p class="footer-copy">© 2026 Drew Golden Designs · Hingham, MA &amp; Lehigh University</p>
+</footer>
+
+<script>
+  // Intersection observer for fade-ins
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Nav shrink on scroll
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.padding = window.scrollY > 60 ? '0.9rem 4rem' : '1.4rem 4rem';
+  });
+
+  // Trigger hero fades immediately
+  setTimeout(() => {
+    document.querySelectorAll('.hero .fade-in').forEach(el => el.classList.add('visible'));
+  }, 100);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target;
+    btn.textContent = 'Message Sent ✓';
+    btn.style.background = '#6aad8c';
+    setTimeout(() => { btn.textContent = 'Send Message →'; btn.style.background = ''; }, 3000);
+  }
+</script>
+</body>
+</html>
